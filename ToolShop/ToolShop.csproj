@@ -34,9 +34,21 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,7 +67,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Pages\AuthorizationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ToolsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\AuthorizationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -63,7 +87,67 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Manufacturers.cs">
+      <DependentUpon>ToolsShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderProducts.cs">
+      <DependentUpon>ToolsShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Orders.cs">
+      <DependentUpon>ToolsShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrderStatus.cs">
+      <DependentUpon>ToolsShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\AuthorizationPage.xaml.cs">
+      <DependentUpon>AuthorizationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ToolsPage.xaml.cs">
+      <DependentUpon>ToolsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Prdoucts.cs">
+      <DependentUpon>ToolsShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ProductTypes.cs">
+      <DependentUpon>ToolsShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Roles.cs">
+      <DependentUpon>ToolsShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>ToolsShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sp_helpdiagrams_Result.cs">
+      <DependentUpon>ToolsShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Suppliers.cs">
+      <DependentUpon>ToolsShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="sysdiagrams.cs">
+      <DependentUpon>ToolsShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ToolsShopModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ToolsShopModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ToolsShopModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ToolsShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="ToolsShopModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ToolsShopModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Users.cs">
+      <DependentUpon>ToolsShopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\AuthorizationWindow.xaml.cs">
+      <DependentUpon>AuthorizationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -86,13 +170,40 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <EntityDeploy Include="ToolsShopModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ToolsShopModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ToolsShopModel.edmx.diagram">
+      <DependentUpon>ToolsShopModel.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\default_picture.png" />
+    <Resource Include="Resources\logo.png" />
+    <Resource Include="icon.ico" />
+    <Content Include="ToolsShopModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ToolsShopModel.Context.cs</LastGenOutput>
+      <DependentUpon>ToolsShopModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="ToolsShopModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ToolsShopModel.edmx</DependentUpon>
+      <LastGenOutput>ToolsShopModel.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

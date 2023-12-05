@@ -2,8 +2,78 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:ToolShop"
-             StartupUri="MainWindow.xaml">
+             StartupUri="Windows/AuthorizationWindow.xaml">
     <Application.Resources>
-         
+        <!--Цвета-->
+        
+        <SolidColorBrush x:Key="ColorPrimary" Color="#FFCA86"/>
+        <SolidColorBrush x:Key="ColorAccent" Color="Orange"/>
+        <SolidColorBrush x:Key="ColorFont" Color="Black"/>
+
+        <!--Стили-->
+
+        <!--Текстовые поля-->
+
+        <Style TargetType="TextBlock" x:Key="HeaderBlock">
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="Foreground" Value="{StaticResource ColorFont}"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="CommonBlock">
+            <Setter Property="Margin" Value="5"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="Foreground" Value="{StaticResource ColorFont}"/>
+            <Setter Property="Width" Value="175"/>
+            <Setter Property="Height" Value="30"/>
+        </Style>
+
+        <!--Кнопки-->
+
+        <Style TargetType="Button" x:Key="CommonButton">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="175"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="Foreground" Value="{StaticResource ColorFont}"/>
+            <Setter Property="Background" Value="{StaticResource ColorAccent}"/>
+        </Style>
+        
+        <!--Поля ввода-->
+
+        <Style TargetType="TextBox" x:Key="CommonTextBox">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Width" Value="175"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            
+        </Style>
+
+        <Style TargetType="PasswordBox" x:Key="CommonPasswordBox">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Width" Value="175"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+        </Style>
+
     </Application.Resources>
 </Application>

@@ -13,5 +13,7 @@ namespace ToolShop
     /// </summary>
     public partial class App : Application
     {
+        public static ToolShopEntities Context { get;} = new ToolShopEntities();
+        public static Users CurrentUser = null;
     }
 }
