@@ -17,13 +17,13 @@ namespace ToolShop
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProductTypes()
         {
-            this.Prdoucts = new HashSet<Prdoucts>();
+            this.Products = new HashSet<Products>();
         }
     
         public int ID { get; set; }
         public string Title { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Prdoucts> Prdoucts { get; set; }
+        public virtual ICollection<Products> Products { get; set; }
     }
 }

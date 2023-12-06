@@ -38,6 +38,13 @@
             <Setter Property="Height" Value="30"/>
         </Style>
 
+        <Style TargetType="TextBlock" x:Key="ListViewElementBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="Foreground" Value="{StaticResource ColorFont}"/>
+            <Setter Property="Margin" Value="10 0 0 0"/>
+        </Style>
+
         <!--Кнопки-->
 
         <Style TargetType="Button" x:Key="CommonButton">

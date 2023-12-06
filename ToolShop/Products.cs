@@ -11,19 +11,57 @@ namespace ToolShop
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Prdoucts
+    using System.IO;
+    using System.Linq;
+
+    public partial class Products
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Prdoucts()
+        public Products()
         {
             this.OrderProducts = new HashSet<OrderProducts>();
         }
-    
+
+        public string correctImage
+        {
+            get
+            {
+                string path = (Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName + $"/Resources/");
+                if (String.IsNullOrEmpty(Image) || String.IsNullOrWhiteSpace(Image) || Image == null)
+                {
+                    return path + "default_picture.png";
+                }
+                else
+                {
+                    return path + Image;
+                }
+            }
+        }
+
+        public string productTypeName
+        {
+            get
+            {
+                return App.Context.ProductTypes.Where(pt => pt.ID == ProductTypeID).First().Title;
+            }
+        }
+        
+        public string shortDescription
+        {
+            get
+            {
+                if (Description.Length > 25)
+                {
+                    return (Description.Substring(0, 25) + "...").ToString();
+                }
+                return Description;
+            }
+        }
+
         public int ID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
-        public int ProductType { get; set; }
+        public int ProductTypeID { get; set; }
         public decimal Price { get; set; }
         public int AmountInStock { get; set; }
         public int ManufacturerID { get; set; }

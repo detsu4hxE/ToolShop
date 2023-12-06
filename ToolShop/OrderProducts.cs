@@ -19,6 +19,6 @@ namespace ToolShop
         public int Amount { get; set; }
     
         public virtual Orders Orders { get; set; }
-        public virtual Prdoucts Prdoucts { get; set; }
+        public virtual Products Products { get; set; }
     }
 }

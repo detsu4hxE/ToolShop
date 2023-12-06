@@ -105,7 +105,7 @@
     <Compile Include="Pages\ToolsPage.xaml.cs">
       <DependentUpon>ToolsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Prdoucts.cs">
+    <Compile Include="Products.cs">
       <DependentUpon>ToolsShopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductTypes.cs">
@@ -114,16 +114,7 @@
     <Compile Include="Roles.cs">
       <DependentUpon>ToolsShopModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>ToolsShopModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_helpdiagrams_Result.cs">
-      <DependentUpon>ToolsShopModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Suppliers.cs">
-      <DependentUpon>ToolsShopModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sysdiagrams.cs">
       <DependentUpon>ToolsShopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ToolsShopModel.Context.cs">
@@ -190,10 +181,15 @@
     <Resource Include="Resources\default_picture.png" />
     <Resource Include="Resources\logo.png" />
     <Resource Include="icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="ToolsShopModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>ToolsShopModel.Context.cs</LastGenOutput>
       <DependentUpon>ToolsShopModel.edmx</DependentUpon>
+      <LastGenOutput>ToolsShopModel.Context.cs</LastGenOutput>
     </Content>
     <Content Include="ToolsShopModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -201,9 +197,5 @@
       <LastGenOutput>ToolsShopModel.cs</LastGenOutput>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

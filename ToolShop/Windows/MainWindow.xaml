@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToolShop"
         mc:Ignorable="d"
-        Title="Магазин инструментов" Height="550" Width="1000">
+        Title="Магазин инструментов" Height="750" Width="1000">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="85"/>
@@ -16,8 +16,8 @@
         <Grid Grid.Row="2" Background="{StaticResource ColorPrimary}"/>
         <Image Grid.Row="0" Source="/Resources/logo.png" HorizontalAlignment="Left"/>
         <TextBlock Grid.Row="0" Style="{StaticResource HeaderBlock}" Text="{Binding ElementName=FrameMain, Path=Content.Title}"/>
-        <TextBlock Grid.Row="0" Style="{StaticResource CommonBlock}" TextAlignment="Right" Width="auto" Name="userNameBlock" HorizontalAlignment="Right"/>
-        <Frame x:Name="FrameMain"/>
+        <TextBlock Grid.Row="0" Style="{StaticResource CommonBlock}" Name="userNameBlock" TextAlignment="Right" Width="auto"  HorizontalAlignment="Right" Margin="5"/>
+        <Frame Grid.Row="1" x:Name="FrameMain"/>
         <Button Grid.Row="2" Name="backButton" Style="{StaticResource CommonButton}" Content="Назад" Click="backButton_Click"/>
         <Button Grid.Row="2" Name="exitButton" Style="{StaticResource CommonButton}" Content="Выход" HorizontalAlignment="Right" Click="exitButton_Click"/>
     </Grid>

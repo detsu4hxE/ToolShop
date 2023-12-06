@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,18 @@ namespace ToolShop.Pages
         public ToolsPage()
         {
             InitializeComponent();
+            Update();
+        }
+        private void Update()
+        {
+            var tools = App.Context.Products.ToList();
+            toolsListView.ItemsSource = null;
+            toolsListView.ItemsSource = tools;
+        }
+
+        private void addToolButton_Click(object sender, RoutedEventArgs e)
+        {
+            Update();
         }
     }
 }
