@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ToolShop"
         mc:Ignorable="d"
-        Title="Магазин инструментов" Height="750" Width="1000">
+        Title="Магазин инструментов" Height="750" Width="1150" MinHeight="600" MinWidth="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="85"/>
