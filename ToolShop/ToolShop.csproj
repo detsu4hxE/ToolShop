@@ -67,7 +67,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Pages\AddEditProductPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AuthorizationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ProductInfoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -99,8 +107,14 @@
     <Compile Include="OrderStatus.cs">
       <DependentUpon>ToolsShopModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Pages\AddEditProductPage.xaml.cs">
+      <DependentUpon>AddEditProductPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\AuthorizationPage.xaml.cs">
       <DependentUpon>AuthorizationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ProductInfoPage.xaml.cs">
+      <DependentUpon>ProductInfoPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\ToolsPage.xaml.cs">
       <DependentUpon>ToolsPage.xaml</DependentUpon>

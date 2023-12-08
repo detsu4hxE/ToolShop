@@ -57,6 +57,50 @@ namespace ToolShop
                 return Description;
             }
         }
+        public string infoOrEditButtonContent
+        {
+            get
+            {
+                if (App.CurrentUser == null)
+                {
+                    return "Подробнее";
+                }
+                if (App.CurrentUser.RoleID == 1)
+                {
+                    return "Изменить";
+                }
+                return "Подробнее";
+            }
+        }
+        public string addOrDeleteButtonContent
+        {
+            get
+            {
+                if (App.CurrentUser == null)
+                {
+                    return "Добавить в корзину";
+                }
+                if (App.CurrentUser.RoleID == 1)
+                {
+                    return "Удалить";
+                }
+                return "Добавить в корзину";
+            }
+        }
+        public string addOrDeleteButtonVisibility
+        {
+            get
+            {
+                if (App.CurrentUser != null)
+                {
+                    return "Visible";
+                }
+                else
+                {
+                    return "Hidden";
+                }
+            }
+        }
 
         public int ID { get; set; }
         public string Title { get; set; }

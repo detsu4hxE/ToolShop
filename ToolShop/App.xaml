@@ -70,8 +70,10 @@
         <Style TargetType="ComboBox" x:Key="CommonComboBox">
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
-            <Setter Property="Width" Value="175"/>
+            <Setter Property="Width" Value="230"/>
             <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
         </Style>
         
         <!--Поля ввода-->

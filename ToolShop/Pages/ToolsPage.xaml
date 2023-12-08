@@ -16,15 +16,19 @@
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBox Name="searchBox" Style="{StaticResource CommonTextBox}"/>
-            <ComboBox Name="sortBox" Style="{StaticResource CommonComboBox}" Margin="15 0 0 0">
+            <TextBox Name="searchBox" Style="{StaticResource CommonTextBox}" Width="200" TextChanged="searchBox_TextChanged"/>
+            <ComboBox Name="sortBox" Style="{StaticResource CommonComboBox}" Margin="15 0 0 0" SelectionChanged="sortBox_SelectionChanged">
                 <ComboBoxItem Content="Название: А-Я"/>
                 <ComboBoxItem Content="Название: Я-А"/>
                 <ComboBoxItem Content="Стоимость: по возрастанию"/>
                 <ComboBoxItem Content="Стоимость: по убыванию"/>
             </ComboBox>
+            <ComboBox Name="filterBox" Style="{StaticResource CommonComboBox}" Margin="15 0 0 0" SelectionChanged="filterBox_SelectionChanged">
+                <ComboBoxItem Content="Все категории"/>
+            </ComboBox>
         </StackPanel>
-        <ListView Name="toolsListView" Grid.Row="2" BorderBrush="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <TextBlock Grid.Row="1" Name="searchResultBox" Style="{StaticResource CommonBlock}" Width="auto"/>
+        <ListView Name="toolsListView" Grid.Row="2" BorderBrush="Transparent" VerticalAlignment="Top" HorizontalAlignment="Center" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -60,8 +64,8 @@
                                 <TextBlock Text=" шт." Style="{StaticResource ListViewElementBlock}"/>
                             </StackPanel>
                         </StackPanel>
-                        <Button Grid.Column="4" Style="{StaticResource CommonButton}" Content="Подробнее"/>
-                        <Button Grid.Column="5" Style="{StaticResource CommonButton}" Content="Добавить в корзину"/>
+                        <Button Grid.Column="4" Click="infoOrEditButton_Click" Style="{StaticResource CommonButton}" Content="{Binding infoOrEditButtonContent}"/>
+                        <Button Grid.Column="5" Click="addOrDeleteButton_Click" Style="{StaticResource CommonButton}" Content="{Binding addOrDeleteButtonContent}" Visibility="{Binding addOrDeleteButtonVisibility}"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
