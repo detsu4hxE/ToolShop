@@ -9,6 +9,38 @@
       Title="Информация о товаре">
 
     <Grid>
-        
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Название: " Style="{StaticResource DetailsTitleBlock}"/>
+                    <TextBlock Name="nameBox" Style="{StaticResource DetailsBlock}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Описание: " Style="{StaticResource DetailsTitleBlock}"/>
+                    <TextBlock Name="descriptionBox" Style="{StaticResource DetailsBlock}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Категория: " Style="{StaticResource DetailsTitleBlock}"/>
+                    <TextBlock Name="categoryBox" Style="{StaticResource DetailsBlock}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Стоимость: " Style="{StaticResource DetailsTitleBlock}"/>
+                    <TextBlock Name="priceBox" Style="{StaticResource DetailsBlock}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Количество на складе: " Style="{StaticResource DetailsTitleBlock}"/>
+                    <TextBlock Name="amountInStock" Style="{StaticResource DetailsBlock}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Производитель: " Style="{StaticResource DetailsTitleBlock}"/>
+                    <TextBlock Name="manufacturerBox" Style="{StaticResource DetailsBlock}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Поставщик: " Style="{StaticResource DetailsTitleBlock}"/>
+                    <TextBlock Name="supplierBox" Style="{StaticResource DetailsBlock}"/>
+                </StackPanel>
+            </StackPanel>
+            <Image Source="/Resources/default_picture.png" Height="250"/>
+        </StackPanel>
     </Grid>
 </Page>

@@ -24,17 +24,67 @@ namespace ToolShop.Pages
         public AddEditProductPage(Products product)
         {
             InitializeComponent();
+            FillComboBoxes();
             if (product != null)
             {
                 currentProduct = product;
                 Title = "Редактирование товара";
-                //код редактирования
+                saveButton.Content = "Сохранить";
+                FillData();
             }
             else
             {
                 currentProduct = null;
                 Title = "Добавление товара";
-                //код добавления
+                saveButton.Content = "Добавить";
+            }
+        }
+        private void FillComboBoxes()
+        {
+            categoryBox.ItemsSource = App.Context.ProductTypes.ToList().Select(c => c.Title);
+            manufacturerBox.ItemsSource = App.Context.Manufacturers.ToList().Select(m => m.Title);
+            supplierBox.ItemsSource = App.Context.Suppliers.ToList().Select(s => s.Title);
+        }
+        private void FillData()
+        {
+            nameBox.Text = currentProduct.Title;
+            descriptionBox.Text = currentProduct.Description;
+            categoryBox.SelectedItem = App.Context.ProductTypes.Where(pt => pt.ID == currentProduct.ProductTypeID).First().Title;
+            priceBox.Text = currentProduct.Price.ToString();
+            amountInStock.Text = currentProduct.AmountInStock.ToString();
+            manufacturerBox.SelectedItem = App.Context.Manufacturers.Where(m => m.ID == currentProduct.ManufacturerID).First().Title;
+            supplierBox.SelectedItem = App.Context.Suppliers.Where(s => s.ID == currentProduct.SupplierID).First().Title;
+        }
+
+        private void saveButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (currentProduct != null)
+            {
+                currentProduct.Title = nameBox.Text;
+                currentProduct.Description = descriptionBox.Text;
+                currentProduct.ProductTypeID = App.Context.ProductTypes.Where(pt => pt.Title == categoryBox.Text).First().ID;
+                currentProduct.Price = (decimal)(double.Parse(priceBox.Text));
+                currentProduct.AmountInStock = int.Parse(amountInStock.Text);
+                currentProduct.ManufacturerID = App.Context.Manufacturers.Where(m => m.Title == manufacturerBox.Text).First().ID;
+                currentProduct.SupplierID = App.Context.Suppliers.Where(s => s.Title == supplierBox.Text).First().ID;
+                App.Context.SaveChanges();
+                MessageBox.Show("Товар успешно обновлен");
+            }
+            else
+            {
+                Products product = new Products();
+
+                product.Title = nameBox.Text;
+                product.Description = descriptionBox.Text;
+                product.ProductTypeID = App.Context.ProductTypes.Where(pt => pt.Title == categoryBox.Text).First().ID;
+                product.Price = (decimal)(double.Parse(priceBox.Text));
+                product.AmountInStock = int.Parse(amountInStock.Text);
+                product.ManufacturerID = App.Context.Manufacturers.Where(m => m.Title == manufacturerBox.Text).First().ID;
+                product.SupplierID = App.Context.Suppliers.Where(s => s.Title == supplierBox.Text).First().ID;
+
+                App.Context.Products.Add(product);
+                App.Context.SaveChanges();
+                MessageBox.Show("Товар успешно добавлен");
             }
         }
     }

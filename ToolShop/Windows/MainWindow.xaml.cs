@@ -40,7 +40,10 @@ namespace ToolShop
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
-
+            if (FrameMain.CanGoBack)
+            {
+                FrameMain.GoBack();
+            }
         }
 
         private void exitButton_Click(object sender, RoutedEventArgs e)

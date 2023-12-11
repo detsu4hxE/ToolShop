@@ -17,7 +17,7 @@
         <Image Grid.Row="0" Source="/Resources/logo.png" HorizontalAlignment="Left"/>
         <TextBlock Grid.Row="0" Style="{StaticResource HeaderBlock}" Text="{Binding ElementName=FrameMain, Path=Content.Title}"/>
         <TextBlock Grid.Row="0" Style="{StaticResource CommonBlock}" Name="userNameBlock" TextAlignment="Right" Width="auto"  HorizontalAlignment="Right" Margin="5"/>
-        <Frame Grid.Row="1" x:Name="FrameMain"/>
+        <Frame Grid.Row="1" x:Name="FrameMain" NavigationUIVisibility="Hidden"/>
         <Button Grid.Row="2" Name="backButton" Style="{StaticResource CommonButton}" Content="Назад" Click="backButton_Click"/>
         <Button Grid.Row="2" Name="exitButton" Style="{StaticResource CommonButton}" Content="Выход" HorizontalAlignment="Right" Click="exitButton_Click"/>
     </Grid>

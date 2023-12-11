@@ -26,6 +26,13 @@ namespace ToolShop.Pages
             InitializeComponent();
             currentProduct = product;
             //Код вывода информации
+            nameBox.Text = $"{currentProduct.Title}";
+            descriptionBox.Text = $"{currentProduct.Description}";
+            categoryBox.Text = $"{currentProduct.productTypeName}";
+            priceBox.Text = $"{currentProduct.Price}";
+            amountInStock.Text = $"{currentProduct.AmountInStock} шт.";
+            manufacturerBox.Text = $"{App.Context.Manufacturers.Where(m => m.ID == currentProduct.ManufacturerID).First().Title}";
+            supplierBox.Text = $"{App.Context.Suppliers.Where(m => m.ID == currentProduct.SupplierID).First().Title}";
         }
     }
 }

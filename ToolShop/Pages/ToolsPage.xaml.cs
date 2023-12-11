@@ -36,7 +36,7 @@ namespace ToolShop.Pages
 
         private void addToolButton_Click(object sender, RoutedEventArgs e)
         {
-            Update();
+            NavigationService.Navigate(new AddEditProductPage(null));
         }
 
         private void searchBox_TextChanged(object sender, TextChangedEventArgs e)
@@ -95,7 +95,7 @@ namespace ToolShop.Pages
         {
             var button = sender as Button;
             var currentTool = button.DataContext as Products;
-            if (button.Content.ToString() == "Редактировать")
+            if (button.Content.ToString() == "Изменить")
             {
                 NavigationService.Navigate(new AddEditProductPage(currentTool));
             }
@@ -103,7 +103,6 @@ namespace ToolShop.Pages
             {
                 NavigationService.Navigate(new ProductInfoPage(currentTool));
             }
-            //Переход на страницу
         }
 
         private void addOrDeleteButton_Click(object sender, RoutedEventArgs e)
