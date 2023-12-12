@@ -114,7 +114,9 @@ namespace ToolShop.Pages
                 var orderProduct = App.Context.OrderProducts.Where(op => op.ProductID == currentTool.ID).ToList();
                 if (MessageBox.Show($"Вы уверены, что хотите удалить товар: \"{currentTool.Title}\", также будет удалено {orderProduct.Count} записей из таблицы \"OrderProducts\"", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                 {
-                    //Код удаления
+                    App.Context.Products.Remove(currentTool);
+                    App.Context.SaveChanges();
+                    Update();
                 }
             }
             else

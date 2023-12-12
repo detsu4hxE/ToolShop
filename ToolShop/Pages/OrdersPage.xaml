@@ -1,0 +1,75 @@
+﻿<Page x:Class="ToolShop.Pages.OrdersPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ToolShop.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="615" d:DesignWidth="1150"
+      Title="Заказы">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBox Name="searchBox" Style="{StaticResource CommonTextBox}" Width="200" TextChanged="searchBox_TextChanged"/>
+            <ComboBox Name="sortBox" Style="{StaticResource CommonComboBox}" Margin="15 0 0 0" SelectionChanged="sortBox_SelectionChanged">
+                <ComboBoxItem Content="Номер заказа: по возрастанию"/>
+                <ComboBoxItem Content="Номер заказа: по убыванию"/>
+                <ComboBoxItem Content="Сумма заказа: по возрастанию"/>
+                <ComboBoxItem Content="Сумма заказа: по убыванию"/>
+            </ComboBox>
+            <ComboBox Name="filterBox" Style="{StaticResource CommonComboBox}" Margin="15 0 0 0" SelectionChanged="filterBox_SelectionChanged">
+                <ComboBoxItem Content="Все категории"/>
+            </ComboBox>
+        </StackPanel>
+        <TextBlock Grid.Row="1" Name="searchResultBox" Style="{StaticResource CommonBlock}" Width="auto"/>
+        <ListView Name="ordersListView" Grid.Row="2" BorderBrush="Transparent" VerticalAlignment="Top" HorizontalAlignment="Center" d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="200"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="{Binding correctImage}"/>
+                        <TextBlock Grid.Column="1" Text="{Binding Title}" Style="{StaticResource ListViewElementBlock}" VerticalAlignment="Center"/>
+                        <StackPanel Orientation="Vertical" Grid.Column="2" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Категория: " Style="{StaticResource ListViewSubTitleBlock}"/>
+                                <TextBlock Text="{Binding productTypeName}" Style="{StaticResource ListViewElementBlock}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Описание: " Style="{StaticResource ListViewSubTitleBlock}"/>
+                                <TextBlock Text="{Binding shortDescription}" Style="{StaticResource ListViewElementBlock}"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="3" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Стоимость: " Style="{StaticResource ListViewSubTitleBlock}"/>
+                                <TextBlock Text="{Binding Price}" Style="{StaticResource ListViewElementBlock}"/>
+                                <TextBlock Text="руб." Style="{StaticResource ListViewElementBlock}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Остаток: " Style="{StaticResource ListViewSubTitleBlock}"/>
+                                <TextBlock Text="{Binding AmountInStock}" Style="{StaticResource ListViewElementBlock}"/>
+                                <TextBlock Text=" шт." Style="{StaticResource ListViewElementBlock}"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <Button Grid.Column="4" Click="infoOrEditButton_Click" Style="{StaticResource CommonButton}" Content="{Binding infoOrEditButtonContent}"/>
+                        <Button Grid.Column="5" Click="addOrDeleteButton_Click" Style="{StaticResource CommonButton}" Content="{Binding addOrDeleteButtonContent}" Visibility="{Binding addOrDeleteButtonVisibility}"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Name="addToolButton" Grid.Row="3" Style="{StaticResource CommonButton}" Content="Добавить инструмент" Click="addToolButton_Click"/>
+    </Grid>
+</Page>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.IO;
+using System.Data.Odbc;
 
 namespace ToolShop.Pages
 {
@@ -21,6 +23,11 @@ namespace ToolShop.Pages
     public partial class AddEditProductPage : Page
     {
         public Products currentProduct;
+        public byte[] imageData = null;
+        public string currentImage = null;
+        public string extension = ".png";
+        public string selectedFileName;
+        public string path = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName + $"/Resources/";
         public AddEditProductPage(Products product)
         {
             InitializeComponent();
@@ -54,10 +61,32 @@ namespace ToolShop.Pages
             amountInStock.Text = currentProduct.AmountInStock.ToString();
             manufacturerBox.SelectedItem = App.Context.Manufacturers.Where(m => m.ID == currentProduct.ManufacturerID).First().Title;
             supplierBox.SelectedItem = App.Context.Suppliers.Where(s => s.ID == currentProduct.SupplierID).First().Title;
+            currentImage = currentProduct.Image;
+            if (currentImage != null)
+            {
+                imageData = File.ReadAllBytes(path + currentImage);
+                imageBox.Source = new ImageSourceConverter().ConvertFrom(imageData) as ImageSource;
+            }
         }
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
+            if (currentImage != null)
+            {
+                currentImage = nameBox.Text + extension;
+
+                int a = 0;
+                while (File.Exists(path + currentImage))
+                {
+                    a++;
+                    currentImage = $"{nameBox.Text}({a}){extension}";
+                }
+                File.Copy(selectedFileName, path + currentImage);
+            }
+            else if (currentProduct.Image != null)
+            {
+                currentImage = currentProduct.Image;
+            }
             if (currentProduct != null)
             {
                 currentProduct.Title = nameBox.Text;
@@ -67,6 +96,7 @@ namespace ToolShop.Pages
                 currentProduct.AmountInStock = int.Parse(amountInStock.Text);
                 currentProduct.ManufacturerID = App.Context.Manufacturers.Where(m => m.Title == manufacturerBox.Text).First().ID;
                 currentProduct.SupplierID = App.Context.Suppliers.Where(s => s.Title == supplierBox.Text).First().ID;
+                currentProduct.Image = currentImage;
                 App.Context.SaveChanges();
                 MessageBox.Show("Товар успешно обновлен");
             }
@@ -81,10 +111,27 @@ namespace ToolShop.Pages
                 product.AmountInStock = int.Parse(amountInStock.Text);
                 product.ManufacturerID = App.Context.Manufacturers.Where(m => m.Title == manufacturerBox.Text).First().ID;
                 product.SupplierID = App.Context.Suppliers.Where(s => s.Title == supplierBox.Text).First().ID;
+                product.Image = currentImage;
 
                 App.Context.Products.Add(product);
                 App.Context.SaveChanges();
                 MessageBox.Show("Товар успешно добавлен");
+            }
+            NavigationService.Navigate(new ToolsPage());
+        }
+
+        private void selectImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Multiselect = false;
+            ofd.Filter = "Image | *.png; *.jpg; *.jpeg";
+            if (ofd.ShowDialog() == true)
+            {
+                selectedFileName = ofd.FileName;
+                currentImage = Path.GetFileName(selectedFileName);
+                extension = Path.GetExtension(currentImage);
+                imageData = File.ReadAllBytes(selectedFileName);
+                imageBox.Source = new ImageSourceConverter().ConvertFrom(imageData) as ImageSource;
             }
         }
     }

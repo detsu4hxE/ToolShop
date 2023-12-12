@@ -41,8 +41,8 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Vertical">
-                <Image Source="/Resources/default_picture.png" Height="250"/>
-                <Button Content="Выбрать фотографию" Style="{StaticResource CommonButton}"/>
+                <Image Name="imageBox" Source="/Resources/default_picture.png" Height="250"/>
+                <Button Name="selectImageButton" Click="selectImageButton_Click" Content="Выбрать фотографию" Style="{StaticResource CommonButton}"/>
                 <Button Name="saveButton" Click="saveButton_Click" Content="Сохранить изменения" Style="{StaticResource CommonButton}"/>
             </StackPanel>
         </StackPanel>
