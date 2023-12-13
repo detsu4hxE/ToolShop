@@ -24,7 +24,7 @@
                 <ComboBoxItem Content="Сумма заказа: по убыванию"/>
             </ComboBox>
             <ComboBox Name="filterBox" Style="{StaticResource CommonComboBox}" Margin="15 0 0 0" SelectionChanged="filterBox_SelectionChanged">
-                <ComboBoxItem Content="Все категории"/>
+                <ComboBoxItem Content="Все заказы"/>
             </ComboBox>
         </StackPanel>
         <TextBlock Grid.Row="1" Name="searchResultBox" Style="{StaticResource CommonBlock}" Width="auto"/>
@@ -33,14 +33,21 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="100"/>
-                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="250"/>
                             <ColumnDefinition Width="300"/>
                             <ColumnDefinition Width="200"/>
                             <ColumnDefinition Width="200"/>
                             <ColumnDefinition Width="200"/>
                         </Grid.ColumnDefinitions>
-                        <Image Grid.Column="0" Source="{Binding correctImage}"/>
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="Номер заказа:" Style="{StaticResource ListViewSubTitleBlock}"/>
+                            <TextBlock Text="{Binding ID}" Style="{StaticResource ListViewElementBlock}"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <TextBlock Text="Заказчик:" Style="{StaticResource ListViewSubTitleBlock}"/>
+                            <TextBlock Text="{Binding FIO}" Style="{StaticResource ListViewElementBlock}"/>
+                        </StackPanel>
                         <TextBlock Grid.Column="1" Text="{Binding Title}" Style="{StaticResource ListViewElementBlock}" VerticalAlignment="Center"/>
                         <StackPanel Orientation="Vertical" Grid.Column="2" VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal">
