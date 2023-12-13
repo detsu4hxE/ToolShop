@@ -11,9 +11,17 @@ namespace ToolShop
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
+
     public partial class OrderProducts
     {
+        public string productName
+        {
+            get
+            {
+                return App.Context.Products.Where(p => p.ID == ProductID).First().Title;
+            }
+        }
         public int OrderID { get; set; }
         public int ProductID { get; set; }
         public int Amount { get; set; }

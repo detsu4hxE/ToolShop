@@ -11,13 +11,61 @@ namespace ToolShop
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Linq;
+
     public partial class Orders
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Orders()
         {
             this.OrderProducts = new HashSet<OrderProducts>();
+        }
+        public string FIO
+        {
+            get
+            {
+                var user = App.Context.Users.Where(u => u.ID == UserID).First();
+                return $"{user.Surname} {user.Firstname} {user.Patronymic}";
+            }
+        }
+        public double price
+        {
+            get
+            {
+                var orderProducts = App.Context.OrderProducts.Where(op => op.OrderID == ID).ToList();
+                double sum = 0.0;
+                foreach (var product in orderProducts)
+                {
+                    var currentProduct = App.Context.Products.Where(p => p.ID == product.ProductID).First();
+                    double productPrice = (double)currentProduct.Price;
+                    sum += productPrice * product.Amount;
+                }
+                return sum;
+            }
+        }
+        public string stringDate
+        {
+            get
+            {
+                return CreationDate.ToString("D");
+            }
+        }
+        public string productsList
+        {
+            get
+            {
+                var products = App.Context.OrderProducts.Where(op => op.OrderID == ID).ToList();
+                string text = "";
+                foreach (var product in products)
+                {
+                    text += $"{product.productName}";
+                    if (product != products.Last())
+                    {
+                        text += $", ";
+                    }
+                }
+                return text;
+            }
         }
     
         public int ID { get; set; }
