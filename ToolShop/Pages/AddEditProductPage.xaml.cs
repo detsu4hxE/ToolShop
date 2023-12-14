@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.IO;
 using System.Data.Odbc;
+using System.Text.RegularExpressions;
 
 namespace ToolShop.Pages
 {
@@ -28,6 +29,10 @@ namespace ToolShop.Pages
         public string extension = ".png";
         public string selectedFileName;
         public string path = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName + $"/Resources/";
+
+        public Regex intNumber = new Regex(@"^\d+$");
+        public Regex doubleNumber = new Regex(@"^\d+(,\d+)?$");
+        MatchCollection matches;
         public AddEditProductPage(Products product)
         {
             InitializeComponent();
@@ -71,6 +76,12 @@ namespace ToolShop.Pages
 
         private void saveButton_Click(object sender, RoutedEventArgs e)
         {
+            var errorMessage = checkErrors();
+            if (errorMessage.Length > 0)
+            {
+                MessageBox.Show(errorMessage);
+                return;
+            }
             if (currentImage != null)
             {
                 currentImage = nameBox.Text + extension;
@@ -133,6 +144,27 @@ namespace ToolShop.Pages
                 imageData = File.ReadAllBytes(selectedFileName);
                 imageBox.Source = new ImageSourceConverter().ConvertFrom(imageData) as ImageSource;
             }
+        }
+        private string checkErrors()
+        {
+            var errors = new StringBuilder();
+
+            matches = intNumber.Matches(amountInStock.Text.ToString());
+            if (matches.Count == 0)
+            {
+                errors.AppendLine("Неверно введен остаток на складе");
+            }
+            matches = doubleNumber.Matches(priceBox.Text.ToString());
+            if (matches.Count == 0)
+            {
+                errors.AppendLine("Неверно введена стоимость");
+            }
+            if (errors.Length > 0)
+            {
+                errors.Insert(0, "Устраните следующие ошибки:\n");
+            }
+
+            return errors.ToString();
         }
     }
 }

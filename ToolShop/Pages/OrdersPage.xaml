@@ -13,7 +13,6 @@
             <RowDefinition Height="50"/>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
             <TextBox Name="searchBox" Style="{StaticResource CommonTextBox}" Width="200" TextChanged="searchBox_TextChanged"/>
@@ -36,7 +35,7 @@
                             <ColumnDefinition Width="150"/>
                             <ColumnDefinition Width="250"/>
                             <ColumnDefinition Width="300"/>
-                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="225"/>
                             <ColumnDefinition Width="200"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -61,6 +60,8 @@
                                 <TextBlock Text="Товары: " Style="{StaticResource ListViewSubTitleBlock}"/>
                                 <TextBlock Text="{Binding productsList}" Style="{StaticResource ListViewElementBlock}" Width="210" TextWrapping="Wrap"/>
                             </StackPanel>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Grid.Column="3" VerticalAlignment="Center">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Дата создания: " Style="{StaticResource ListViewSubTitleBlock}"/>
                                 <TextBlock Text="{Binding stringDate}" Style="{StaticResource ListViewElementBlock}"/>
@@ -70,15 +71,11 @@
                                 <TextBlock Text="{Binding statusName}" Style="{StaticResource ListViewElementBlock}"/>
                             </StackPanel>
                         </StackPanel>
-                        <StackPanel Orientation="Vertical" Grid.Column="3" VerticalAlignment="Center">
-                        </StackPanel>
-                        <Button Grid.Column="3" Click="infoOrEditButton_Click" Style="{StaticResource CommonButton}" Content="{Binding infoOrEditButtonContent}"/>
-                        <Button Grid.Column="4" Click="addOrDeleteButton_Click" Style="{StaticResource CommonButton}" Content="{Binding addOrDeleteButtonContent}" Visibility="{Binding addOrDeleteButtonVisibility}"/>
+                        <Button Grid.Column="4" Click="performOrderButton_Click" Style="{StaticResource CommonButton}" Content="Выполнить заказ" Visibility="{Binding performOrderButtonVisibility}"/>
                         <Separator Grid.Row="1" Grid.ColumnSpan="5" VerticalAlignment="Bottom" Width="3000" HorizontalAlignment="Center"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Name="addToolButton" Grid.Row="3" Style="{StaticResource CommonButton}" Content="Добавить заказ" Click="addToolButton_Click"/>
     </Grid>
 </Page>

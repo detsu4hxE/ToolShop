@@ -13,7 +13,7 @@ namespace ToolShop
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-
+    
     public partial class Products
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +21,6 @@ namespace ToolShop
         {
             this.OrderProducts = new HashSet<OrderProducts>();
         }
-
         public string correctImage
         {
             get
@@ -45,7 +44,7 @@ namespace ToolShop
                 return App.Context.ProductTypes.Where(pt => pt.ID == ProductTypeID).First().Title;
             }
         }
-        
+
         public string shortDescription
         {
             get
@@ -101,7 +100,6 @@ namespace ToolShop
                 }
             }
         }
-
         public int ID { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }

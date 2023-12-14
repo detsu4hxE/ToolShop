@@ -21,25 +21,44 @@ namespace ToolShop.Pages
     /// </summary>
     public partial class CartPage : Page
     {
-        public Orders currentOrder = App.Context.Orders.Where(o => o.UserID == App.CurrentUser.ID && o.OrderStatusID == 3).FirstOrDefault();
+        public Orders currentOrder = null;
         public CartPage()
         {
             InitializeComponent();
+            if (App.CurrentUser != null)
+            {
+                currentOrder = App.Context.Orders.Where(o => o.UserID == App.CurrentUser.ID && o.OrderStatusID == 3).FirstOrDefault();
+            }
             Update();
         }
         private void Update()
         {
-            var currentOrderProducts = App.Context.OrderProducts.Where(op => op.OrderID == currentOrder.ID).ToList();
             orderProductsListView.ItemsSource = null;
-            orderProductsListView.ItemsSource = currentOrderProducts;
-            double sum = 0;
-            foreach (var product in currentOrderProducts)
+            if (App.CurrentUser != null)
             {
-                var currentProduct = App.Context.Products.Where(p => p.ID == product.ProductID).First();
-                double productPrice = (double)currentProduct.Price;
-                sum += productPrice * product.Amount;
+                var currentOrderProducts = App.Context.OrderProducts.Where(op => op.OrderID == currentOrder.ID).ToList();
+                orderProductsListView.ItemsSource = currentOrderProducts;
+                double sum = 0;
+                foreach (var product in currentOrderProducts)
+                {
+                    var currentProduct = App.Context.Products.Where(p => p.ID == product.ProductID).First();
+                    double productPrice = (double)currentProduct.Price;
+                    sum += productPrice * product.Amount;
+                }
+                OrderPriceBox.Text = $"Стоимость заказа: {sum} руб.";
             }
-            OrderPriceBox.Text = $"Стоимость заказа: {sum} руб.";
+            else
+            {
+                orderProductsListView.ItemsSource = App.CurrentOrderProducts;
+                double sum = 0;
+                foreach (var product in App.CurrentOrderProducts)
+                {
+                    var currentProduct = App.Context.Products.Where(p => p.ID == product.ProductID).First();
+                    double productPrice = (double)currentProduct.Price;
+                    sum += productPrice * product.Amount;
+                }
+                OrderPriceBox.Text = $"Стоимость заказа: {sum} руб.";
+            }
         }
 
         private void createOrder_Click(object sender, RoutedEventArgs e)
@@ -59,6 +78,7 @@ namespace ToolShop.Pages
             {
                 App.Context.Orders.Where(o => o.UserID == App.CurrentUser.ID && o.OrderStatusID == 3).FirstOrDefault().OrderStatusID = 1;
                 App.Context.SaveChanges();
+                NavigationService.Navigate(new ToolsPage());
             }
         }
         private void minusButton_Click(object sender, RoutedEventArgs e)
@@ -88,6 +108,7 @@ namespace ToolShop.Pages
                         MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
                     {
                         App.Context.OrderProducts.Remove(currentOrderProduct);
+                        App.Context.SaveChanges();
                         if (App.Context.OrderProducts.Where(op => op.OrderID == currentOrder.ID).ToList().Count == 0)
                         {
                             App.Context.Orders.Remove(currentOrder);
@@ -95,7 +116,6 @@ namespace ToolShop.Pages
                             NavigationService.Navigate(new ToolsPage());
                             return;
                         }
-                        App.Context.SaveChanges();
                     }
                 }
             }
@@ -152,6 +172,7 @@ namespace ToolShop.Pages
                 else
                 {
                     App.Context.OrderProducts.Remove(currentOrderProduct);
+                    App.Context.SaveChanges();
                     if (App.Context.OrderProducts.Where(op => op.OrderID == currentOrder.ID).ToList().Count == 0)
                     {
                         App.Context.Orders.Remove(currentOrder);
@@ -159,7 +180,6 @@ namespace ToolShop.Pages
                         NavigationService.Navigate(new ToolsPage());
                         return;
                     }
-                    App.Context.SaveChanges();
                 }
             }
             Update();

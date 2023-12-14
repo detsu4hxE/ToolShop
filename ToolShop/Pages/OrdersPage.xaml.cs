@@ -92,40 +92,40 @@ namespace ToolShop.Pages
             ordersListView.ItemsSource = null;
             ordersListView.ItemsSource = orders;
         }
-
-        private void infoOrEditButton_Click(object sender, RoutedEventArgs e)
+        private void performOrderButton_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button;
-            var currentTool = button.DataContext as Products;
-            if (button.Content.ToString() == "Изменить")
+            var button = (Button)sender;
+            var order = button.DataContext as Orders;
+            if (order.OrderStatusID == 2)
             {
-                NavigationService.Navigate(new AddEditProductPage(currentTool));
+                MessageBox.Show("Заказ уже выполнен");
+                return;
             }
-            else
+            if (order.OrderStatusID == 3)
             {
-                NavigationService.Navigate(new ProductInfoPage(currentTool));
+                MessageBox.Show("Заказ еще находится в корзине");
+                return;
             }
-        }
-
-        private void addOrDeleteButton_Click(object sender, RoutedEventArgs e)
-        {
-            var button = sender as Button;
-            var currentTool = button.DataContext as Products;
-            if (button.Content.ToString() == "Удалить")
+            //Сначала идет проверка, есть ли товар на складе
+            foreach (var orderProduct in App.Context.OrderProducts.Where(op => op.OrderID == order.ID).ToList())
             {
-                var orderProduct = App.Context.OrderProducts.Where(op => op.ProductID == currentTool.ID).ToList();
-                if (MessageBox.Show($"Вы уверены, что хотите удалить товар: \"{currentTool.Title}\", также будет удалено {orderProduct.Count} записей из таблицы \"OrderProducts\"", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.Yes)
+                if ((App.Context.Products.Where(p => p.ID == orderProduct.ProductID).FirstOrDefault().AmountInStock - orderProduct.Amount) < 0)
                 {
-                    App.Context.Products.Remove(currentTool);
-                    App.Context.SaveChanges();
-                    Update();
+                    MessageBox.Show("Товара на складе не достаточно для выполнения данного заказа");
+                    return;
                 }
             }
-            else
+            //После проверки уже вычитаем товар со склада
+            //Нельзя делать в одном цикле, чтобы не было ошибок по типу:
+            //"Попытался сделать заказ, первые 2 товара успешно списали со склада, 3 недостаточно"-->
+            //-->"Данные в базе не обновились, но при следующем обновлении первые 2 списания будут все равно учтены"
+            foreach (var orderProduct in App.Context.OrderProducts.Where(op => op.OrderID == order.ID).ToList())
             {
-                //Код добавления товара в корзину
+                App.Context.Products.Where(p => p.ID == orderProduct.ProductID).FirstOrDefault().AmountInStock -= orderProduct.Amount;
             }
-
+            order.OrderStatusID = 2;
+            App.Context.SaveChanges();
+            Update();
         }
     }
 }

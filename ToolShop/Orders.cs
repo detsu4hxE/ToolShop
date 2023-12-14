@@ -12,7 +12,7 @@ namespace ToolShop
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
+    
     public partial class Orders
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -74,6 +74,21 @@ namespace ToolShop
                 return App.Context.OrderStatus.Where(os => os.ID == OrderStatusID).First().Title;
             }
         }
+        public string performOrderButtonVisibility
+        {
+            get
+            {
+                if (App.CurrentUser.RoleID == 1)
+                {
+                    return "Visible";
+                }
+                else
+                {
+                    return "Collapsed";
+                }
+            }
+        }
+
         public int ID { get; set; }
         public int UserID { get; set; }
         public int OrderStatusID { get; set; }

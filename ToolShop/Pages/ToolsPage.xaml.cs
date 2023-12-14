@@ -26,10 +26,13 @@ namespace ToolShop.Pages
         {
             InitializeComponent();
             var categories = App.Context.ProductTypes.ToList();
-            if (App.CurrentUser.RoleID == 1)
+            if (App.CurrentUser != null)
             {
-                addToolOrCartButton.Content = "Добавить товар";
-                addToolOrCartButton.Visibility = Visibility.Visible;
+                if (App.CurrentUser.RoleID == 1)
+                {
+                    addToolOrCartButton.Content = "Добавить товар";
+                    addToolOrCartButton.Visibility = Visibility.Visible;
+                }
             }
             foreach (var category in categories)
             {
@@ -39,7 +42,11 @@ namespace ToolShop.Pages
             sortBox.SelectedIndex = 0;
             if (App.CurrentUser != null)
             {
-                if (App.CurrentOrder != null)
+                if (App.Context.Orders.Where(o => o.UserID == App.CurrentUser.ID && o.OrderStatusID == 3).FirstOrDefault() != null)
+                {
+                    currentOrder = App.Context.Orders.Where(o => o.UserID == App.CurrentUser.ID && o.OrderStatusID == 3).FirstOrDefault();
+                }
+                else if (App.CurrentOrder != null)
                 {
                     App.CurrentOrder.UserID = App.CurrentUser.ID;
                     App.CurrentOrder.CreationDate = DateTime.Today;
@@ -53,11 +60,9 @@ namespace ToolShop.Pages
                         App.Context.OrderProducts.Add(orderProduct);
                     }
                     App.Context.SaveChanges();
+                    App.CurrentOrder = null;
+                    App.CurrentOrderProducts = null;
                 }
-            }
-            if (App.Context.Orders.Where(o => o.UserID == App.CurrentUser.ID && o.OrderStatusID == 3).FirstOrDefault() != null)
-            {
-                currentOrder = App.Context.Orders.Where(o => o.UserID == App.CurrentUser.ID && o.OrderStatusID == 3).FirstOrDefault();
             }
             Update();
         }
@@ -264,6 +269,11 @@ namespace ToolShop.Pages
                     }
                 }
             }
+            Update();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
             Update();
         }
     }

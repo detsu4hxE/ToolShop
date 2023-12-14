@@ -12,14 +12,11 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Title" Type="nvarchar" MaxLength="150" Nullable="false" />
         </EntityType>
-        <!--Ошибки, обнаруженные при создании:
-предупреждение 6002: В таблице или представлении "ToolShop.dbo.OrderProducts" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
         <EntityType Name="OrderProducts">
           <Key>
-            <PropertyRef Name="OrderID" />
-            <PropertyRef Name="ProductID" />
-            <PropertyRef Name="Amount" />
+            <PropertyRef Name="ID" />
           </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderID" Type="int" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="Amount" Type="int" Nullable="false" />
@@ -202,6 +199,7 @@
         </Association>
         <EntityContainer Name="Хранилище ToolShopModelContainer">
           <EntitySet Name="Manufacturers" EntityType="Self.Manufacturers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderProducts" EntityType="Self.OrderProducts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
@@ -209,13 +207,6 @@
           <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Suppliers" EntityType="Self.Suppliers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OrderProducts" EntityType="Self.OrderProducts" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [OrderProducts].[OrderID] AS [OrderID], 
-    [OrderProducts].[ProductID] AS [ProductID], 
-    [OrderProducts].[Amount] AS [Amount]
-    FROM [dbo].[OrderProducts] AS [OrderProducts]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_OrderProducts_Orders" Association="Self.FK_OrderProducts_Orders">
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrderProducts" EntitySet="OrderProducts" />
@@ -261,6 +252,17 @@
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Title" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Prdoucts_Manufacturers" FromRole="Manufacturers" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="OrderProducts">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK_OrderProducts_Orders" FromRole="OrderProducts" ToRole="Orders" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_OrderProducts_Prdoucts" FromRole="OrderProducts" ToRole="Products" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -339,18 +341,6 @@
           <NavigationProperty Name="Orders" Relationship="Self.FK_Orders_Users" FromRole="Users" ToRole="Orders" />
           <NavigationProperty Name="Roles" Relationship="Self.FK_Users_Roles" FromRole="Users" ToRole="Roles" />
         </EntityType>
-        <EntityType Name="OrderProducts">
-          <Key>
-            <PropertyRef Name="OrderID" />
-            <PropertyRef Name="ProductID" />
-            <PropertyRef Name="Amount" />
-          </Key>
-          <Property Name="OrderID" Type="Int32" Nullable="false" />
-          <Property Name="ProductID" Type="Int32" Nullable="false" />
-          <Property Name="Amount" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_OrderProducts_Orders" FromRole="OrderProducts" ToRole="Orders" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_OrderProducts_Prdoucts" FromRole="OrderProducts" ToRole="Products" />
-        </EntityType>
         <Association Name="FK_Prdoucts_Manufacturers">
           <End Role="Manufacturers" Type="Self.Manufacturers" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -379,6 +369,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OrderProducts_Prdoucts">
+          <End Role="Products" Type="Self.Products" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="OrderProducts" Type="Self.OrderProducts" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="OrderProducts">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Orders_OrderStatus">
           <End Role="OrderStatus" Type="Self.OrderStatus" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -404,20 +408,6 @@
             </Principal>
             <Dependent Role="Orders">
               <PropertyRef Name="UserID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderProducts_Prdoucts">
-          <End Role="Products" Type="Self.Products" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="OrderProducts" Type="Self.OrderProducts" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="OrderProducts">
-              <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -465,6 +455,7 @@
         </Association>
         <EntityContainer Name="ToolShopEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Manufacturers" EntityType="Self.Manufacturers" />
+          <EntitySet Name="OrderProducts" EntityType="Self.OrderProducts" />
           <EntitySet Name="Orders" EntityType="Self.Orders" />
           <EntitySet Name="OrderStatus" EntityType="Self.OrderStatus" />
           <EntitySet Name="Products" EntityType="Self.Products" />
@@ -472,13 +463,16 @@
           <EntitySet Name="Roles" EntityType="Self.Roles" />
           <EntitySet Name="Suppliers" EntityType="Self.Suppliers" />
           <EntitySet Name="Users" EntityType="Self.Users" />
-          <EntitySet Name="OrderProducts" EntityType="Self.OrderProducts" />
           <AssociationSet Name="FK_Prdoucts_Manufacturers" Association="Self.FK_Prdoucts_Manufacturers">
             <End Role="Manufacturers" EntitySet="Manufacturers" />
             <End Role="Products" EntitySet="Products" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderProducts_Orders" Association="Self.FK_OrderProducts_Orders">
             <End Role="Orders" EntitySet="Orders" />
+            <End Role="OrderProducts" EntitySet="OrderProducts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderProducts_Prdoucts" Association="Self.FK_OrderProducts_Prdoucts">
+            <End Role="Products" EntitySet="Products" />
             <End Role="OrderProducts" EntitySet="OrderProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_Orders_OrderStatus" Association="Self.FK_Orders_OrderStatus">
@@ -488,10 +482,6 @@
           <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
             <End Role="Users" EntitySet="Users" />
             <End Role="Orders" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderProducts_Prdoucts" Association="Self.FK_OrderProducts_Prdoucts">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="OrderProducts" EntitySet="OrderProducts" />
           </AssociationSet>
           <AssociationSet Name="FK_Prdoucts_ProductTypes" Association="Self.FK_Prdoucts_ProductTypes">
             <End Role="ProductTypes" EntitySet="ProductTypes" />
@@ -517,6 +507,16 @@
               <MappingFragment StoreEntitySet="Manufacturers">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderProducts">
+            <EntityTypeMapping TypeName="ToolShopModel.OrderProducts">
+              <MappingFragment StoreEntitySet="OrderProducts">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -588,15 +588,6 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OrderProducts">
-            <EntityTypeMapping TypeName="ToolShopModel.OrderProducts">
-              <MappingFragment StoreEntitySet="OrderProducts">
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-                <ScalarProperty Name="Amount" ColumnName="Amount" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

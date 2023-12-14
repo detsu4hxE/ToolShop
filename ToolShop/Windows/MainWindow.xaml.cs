@@ -26,6 +26,10 @@ namespace ToolShop
         {
             InitializeComponent();
             fullUserName();
+            if (App.CurrentUser == null)
+            {
+                OrdersPageButton.Visibility = Visibility.Collapsed;
+            }
             FrameMain.Navigate(new ToolsPage());
         }
         private void fullUserName()

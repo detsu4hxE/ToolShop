@@ -26,6 +26,7 @@ namespace ToolShop
         }
     
         public virtual DbSet<Manufacturers> Manufacturers { get; set; }
+        public virtual DbSet<OrderProducts> OrderProducts { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<OrderStatus> OrderStatus { get; set; }
         public virtual DbSet<Products> Products { get; set; }
@@ -33,6 +34,5 @@ namespace ToolShop
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<Suppliers> Suppliers { get; set; }
         public virtual DbSet<Users> Users { get; set; }
-        public virtual DbSet<OrderProducts> OrderProducts { get; set; }
     }
 }

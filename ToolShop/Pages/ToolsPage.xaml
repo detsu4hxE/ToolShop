@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:ToolShop.Pages"
+      Loaded="Page_Loaded"
       mc:Ignorable="d" 
       d:DesignHeight="615" d:DesignWidth="1150"
       Title="Инструменты">
@@ -65,7 +66,7 @@
                             </StackPanel>
                         </StackPanel>
                         <Button Grid.Column="4" Click="infoOrEditButton_Click" Style="{StaticResource CommonButton}" Content="{Binding infoOrEditButtonContent}"/>
-                        <Button Grid.Column="5" Click="addOrDeleteButton_Click" Style="{StaticResource CommonButton}" Content="{Binding addOrDeleteButtonContent}" Visibility="{Binding addOrDeleteButtonVisibility}"/>
+                        <Button Grid.Column="5" Click="addOrDeleteButton_Click" Style="{StaticResource CommonButton}" Content="{Binding addOrDeleteButtonContent}"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
