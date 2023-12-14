@@ -15,5 +15,7 @@ namespace ToolShop
     {
         public static ToolShopEntities Context { get;} = new ToolShopEntities();
         public static Users CurrentUser = null;
+        public static Orders CurrentOrder = null;
+        public static List<OrderProducts> CurrentOrderProducts = null;
     }
 }

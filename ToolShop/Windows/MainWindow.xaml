@@ -18,6 +18,10 @@
         <TextBlock Grid.Row="0" Style="{StaticResource HeaderBlock}" Text="{Binding ElementName=FrameMain, Path=Content.Title}"/>
         <TextBlock Grid.Row="0" Style="{StaticResource CommonBlock}" Name="userNameBlock" TextAlignment="Right" Width="auto"  HorizontalAlignment="Right" Margin="5"/>
         <Frame Grid.Row="1" x:Name="FrameMain" NavigationUIVisibility="Hidden"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
+            <Button Name="ToolsPageButton" Click="ToolsPageButton_Click" Style="{StaticResource TextButton}" Content="Инструменты"/>
+            <Button Name="OrdersPageButton" Click="OrdersPageButton_Click" Style="{StaticResource TextButton}" Content="Заказы"/>
+        </StackPanel>
         <Button Grid.Row="2" Name="backButton" Style="{StaticResource CommonButton}" Content="Назад" Click="backButton_Click"/>
         <Button Grid.Row="2" Name="exitButton" Style="{StaticResource CommonButton}" Content="Выход" HorizontalAlignment="Right" Click="exitButton_Click"/>
     </Grid>

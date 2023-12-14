@@ -40,7 +40,10 @@
                     <TextBlock Name="supplierBox" Style="{StaticResource DetailsBlock}"/>
                 </StackPanel>
             </StackPanel>
-            <Image Source="/Resources/default_picture.png" Height="250"/>
+            <StackPanel Orientation="Vertical">
+                <Image Source="/Resources/default_picture.png" Height="250"/>
+                <Button Name="addToCartButton" Click="addToCartButton_Click" Style="{StaticResource CommonButton}" Content="Добавить в корзину"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>

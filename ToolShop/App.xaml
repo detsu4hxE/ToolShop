@@ -9,6 +9,7 @@
         <SolidColorBrush x:Key="ColorPrimary" Color="#FFCA86"/>
         <SolidColorBrush x:Key="ColorAccent" Color="Orange"/>
         <SolidColorBrush x:Key="ColorFont" Color="Black"/>
+        <SolidColorBrush x:Key="ColorSecondary" Color="Transparent"/>
 
         <!--Стили-->
 
@@ -40,6 +41,7 @@
 
         <Style TargetType="TextBlock" x:Key="ListViewElementBlock">
             <Setter Property="FontSize" Value="14"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="FontFamily" Value="Comic Sans MS"/>
             <Setter Property="Foreground" Value="{StaticResource ColorFont}"/>
             <Setter Property="Margin" Value="10 0 0 0"/>
@@ -90,6 +92,32 @@
             <Setter Property="FontFamily" Value="Comic Sans MS"/>
             <Setter Property="Foreground" Value="{StaticResource ColorFont}"/>
             <Setter Property="Background" Value="{StaticResource ColorAccent}"/>
+        </Style>
+
+        <Style TargetType="Button" x:Key="TextButton">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="Foreground" Value="{StaticResource ColorFont}"/>
+            <Setter Property="Background" Value="{StaticResource ColorSecondary}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ColorSecondary}"/>
+        </Style>
+
+        <Style TargetType="Button" x:Key="PlusMinusButton">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Width" Value="30"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontFamily" Value="Comic Sans MS"/>
+            <Setter Property="Foreground" Value="{StaticResource ColorFont}"/>
+            <Setter Property="Background" Value="{StaticResource ColorAccent}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ColorSecondary}"/>
         </Style>
 
         <Style TargetType="ComboBox" x:Key="CommonComboBox">

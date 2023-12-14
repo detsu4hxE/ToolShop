@@ -53,5 +53,15 @@ namespace ToolShop
             App.CurrentUser = null;
             this.Close();
         }
+
+        private void ToolsPageButton_Click(object sender, RoutedEventArgs e)
+        {
+            FrameMain.Navigate(new ToolsPage());
+        }
+
+        private void OrdersPageButton_Click(object sender, RoutedEventArgs e)
+        {
+            FrameMain.Navigate(new OrdersPage());
+        }
     }
 }

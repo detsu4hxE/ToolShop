@@ -1,0 +1,57 @@
+﻿<Page x:Class="ToolShop.Pages.CartPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:ToolShop.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="615" d:DesignWidth="1150"
+      Title="Корзина">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <ListView Grid.Row="0" Name="orderProductsListView" d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="300"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="200"/>
+                            <ColumnDefinition Width="200"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Grid.Column="0" Source="{Binding correctImage}"/>
+                        <TextBlock Grid.Column="1" Text="{Binding productName}" Style="{StaticResource ListViewElementBlock}"/>
+                        <StackPanel Grid.Column="2" Orientation="Vertical" VerticalAlignment="Center">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Стоимость: " Style="{StaticResource ListViewSubTitleBlock}"/>
+                                <TextBlock Text="{Binding price}" Style="{StaticResource ListViewElementBlock}"/>
+                                <TextBlock Text="руб." Style="{StaticResource ListViewElementBlock}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Остаток: " Style="{StaticResource ListViewSubTitleBlock}"/>
+                                <TextBlock Text="{Binding amountInStock}" Style="{StaticResource ListViewElementBlock}"/>
+                                <TextBlock Text=" шт." Style="{StaticResource ListViewElementBlock}"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Grid.Column="3" Orientation="Horizontal">
+                            <Button Content="-" Click="minusButton_Click" Style="{StaticResource PlusMinusButton}"/>
+                            <TextBlock Text="{Binding Amount}" Style="{StaticResource ListViewElementBlock}" FontSize="20"/>
+                            <Button Content="+" Click="plusButton_Click" Style="{StaticResource PlusMinusButton}"/>
+                        </StackPanel>
+                        <Button Grid.Column="4" Click="infoButton_Click"  Style="{StaticResource CommonButton}" Content="Информация о товаре"/>
+                        <Button Grid.Column="5" Click="deleteButton_Click" Style="{StaticResource CommonButton}" Content="Удалить из корзины"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <TextBlock Grid.Row="1" Name="OrderPriceBox" Text="Стоимость заказа: 5600 руб." Style="{StaticResource HeaderBlock}"/>
+        <Button Grid.Row="2" Name="createOrder" Click="createOrder_Click" Style="{StaticResource CommonButton}" Content="Сформировать заказ"/>
+    </Grid>
+</Page>

@@ -67,7 +67,13 @@ namespace ToolShop
                 return text;
             }
         }
-    
+        public string statusName
+        {
+            get
+            {
+                return App.Context.OrderStatus.Where(os => os.ID == OrderStatusID).First().Title;
+            }
+        }
         public int ID { get; set; }
         public int UserID { get; set; }
         public int OrderStatusID { get; set; }

@@ -97,7 +97,7 @@ namespace ToolShop
                 }
                 else
                 {
-                    return "Hidden";
+                    return "Collapsed";
                 }
             }
         }

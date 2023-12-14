@@ -22,6 +22,28 @@ namespace ToolShop
                 return App.Context.Products.Where(p => p.ID == ProductID).First().Title;
             }
         }
+        public string correctImage
+        {
+            get
+            {
+                return App.Context.Products.Where(p => p.ID == ProductID).First().correctImage;
+            }
+        }
+        public double price
+        {
+            get
+            {
+                return (double)App.Context.Products.Where(p => p.ID == ProductID).First().Price;
+            }
+        }
+        public int amountInStock
+        {
+            get
+            {
+                return App.Context.Products.Where(p => p.ID == ProductID).First().AmountInStock;
+            }
+        }
+        public int ID { get; set; }
         public int OrderID { get; set; }
         public int ProductID { get; set; }
         public int Amount { get; set; }
