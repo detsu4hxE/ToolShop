@@ -62,6 +62,10 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TestClass\TestClass.csproj">
+      <Project>{45099063-a4dd-4b63-9c30-79cc0f0c114a}</Project>
+      <Name>TestClass</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ToolShop\ToolShop.csproj">
       <Project>{ff6690bf-9a44-43fa-974d-d26e8b6d5cb5}</Project>
       <Name>ToolShop</Name>
