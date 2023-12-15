@@ -41,7 +41,7 @@
                 </StackPanel>
             </StackPanel>
             <StackPanel Orientation="Vertical">
-                <Image Source="/Resources/default_picture.png" Height="250"/>
+                <Image Name="imageBox" Source="/Resources/default_picture.png" Height="250"/>
                 <Button Name="addToCartButton" Click="addToCartButton_Click" Style="{StaticResource CommonButton}" Content="Добавить в корзину"/>
             </StackPanel>
         </StackPanel>

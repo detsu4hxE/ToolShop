@@ -34,8 +34,8 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="150"/>
                             <ColumnDefinition Width="250"/>
-                            <ColumnDefinition Width="300"/>
-                            <ColumnDefinition Width="225"/>
+                            <ColumnDefinition Width="275"/>
+                            <ColumnDefinition Width="250"/>
                             <ColumnDefinition Width="200"/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
@@ -58,7 +58,7 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Text="Товары: " Style="{StaticResource ListViewSubTitleBlock}"/>
-                                <TextBlock Text="{Binding productsList}" Style="{StaticResource ListViewElementBlock}" Width="210" TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding productsList}" Style="{StaticResource ListViewElementBlock}" Width="190" TextWrapping="Wrap"/>
                             </StackPanel>
                         </StackPanel>
                         <StackPanel Orientation="Vertical" Grid.Column="3" VerticalAlignment="Center">

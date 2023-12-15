@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace ToolShop.Pages
 {
@@ -22,6 +23,8 @@ namespace ToolShop.Pages
     {
         public Products currentProduct;
         public Orders currentOrder = null;
+        public string path = Directory.GetParent(Directory.GetParent(Directory.GetCurrentDirectory()).FullName).FullName + $"/Resources/";
+        public byte[] imageData = null;
         public ProductInfoPage(Products product)
         {
             InitializeComponent();
@@ -41,53 +44,15 @@ namespace ToolShop.Pages
                     currentOrder = App.Context.Orders.Where(o => o.UserID == App.CurrentUser.ID && o.OrderStatusID == 3).FirstOrDefault();
                 }
             }
+            if (product.Image != null)
+            {
+                imageData  = File.ReadAllBytes(path + product.Image);
+                imageBox.Source = new ImageSourceConverter().ConvertFrom(imageData) as ImageSource;
+            }
         }
 
         private void addToCartButton_Click(object sender, RoutedEventArgs e)
         {
-            //if (App.CurrentOrder == null)
-            //{
-            //    var order = new Orders
-            //    {
-            //        UserID = 0,
-            //        OrderStatusID = 1,
-            //        CreationDate = DateTime.Today,
-            //    };
-            //    App.CurrentOrder = order;
-            //}
-            //if (App.CurrentOrderProducts == null)
-            //{
-            //    App.CurrentOrderProducts = new List<OrderProducts>();
-            //}
-            //bool flag = false;
-            //foreach (var product in App.CurrentOrderProducts)
-            //{
-            //    if (product.ProductID == currentProduct.ID)
-            //    {
-            //        if ((product.Amount + 1) > currentProduct.AmountInStock)
-            //        {
-            //            MessageBox.Show("Превышен лимит товара на складе");
-            //            return;
-            //        }
-            //        product.Amount++;
-            //        flag = true;
-            //    }
-            //}
-            //if (currentProduct.AmountInStock == 0)
-            //{
-            //    MessageBox.Show("К сожалению, товара сейчас нет на складе");
-            //    return;
-            //}
-            //if (!flag)
-            //{
-            //    var orderProduct = new OrderProducts
-            //    {
-            //        OrderID = App.CurrentOrder.ID,
-            //        ProductID = currentProduct.ID,
-            //        Amount = 1
-            //    };
-            //    App.CurrentOrderProducts.Add(orderProduct);
-            //}
             if (App.CurrentUser == null)
             {
                 if (App.CurrentOrder == null)

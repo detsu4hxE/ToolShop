@@ -27,7 +27,7 @@ namespace ToolShop.Pages
             InitializeComponent();
         }
 
-        private void loginButton_Click(object sender, RoutedEventArgs e)
+        public void loginButton_Click(object sender, RoutedEventArgs e)
         {
             var currentUser = App.Context.Users.Where(u => u.Login == loginBox.Text && u.Password.Equals(passwordBox.Password)).FirstOrDefault();
             if (currentUser != null)
@@ -63,7 +63,7 @@ namespace ToolShop.Pages
             }
         }
 
-        private void guestButton_Click(object sender, RoutedEventArgs e)
+        public void guestButton_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();

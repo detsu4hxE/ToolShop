@@ -126,6 +126,7 @@ namespace ToolShop.Pages
             order.OrderStatusID = 2;
             App.Context.SaveChanges();
             Update();
+            MessageBox.Show("Заказ успешно выполнен");
         }
     }
 }
